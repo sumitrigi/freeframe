@@ -24,7 +24,7 @@ import {
   LayoutGrid,
 } from 'lucide-react'
 import * as Switch from '@radix-ui/react-switch'
-import { cn, endOfDayISO } from '@/lib/utils'
+import { cn, endOfDayISO, getInitialChar } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/api'
 import type { AssetResponse, Folder, ShareLink, ShareLinkAppearance } from '@/types'
@@ -208,7 +208,7 @@ function ShareInviteInput({ token, shareLink }: { token: string; shareLink: { as
               className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-bg-hover transition-colors"
             >
               <div className="h-6 w-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                <span className="text-2xs font-medium text-accent">{(u.name || u.email).charAt(0).toUpperCase()}</span>
+                <span className="text-2xs font-medium text-accent">{getInitialChar(u.name || u.email)}</span>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm text-text-primary truncate">{u.name}</p>
@@ -227,7 +227,7 @@ function ShareInviteInput({ token, shareLink }: { token: string; shareLink: { as
           {invitedUsers.map((u) => (
             <div key={u.id} className="flex items-center gap-2 rounded-md bg-bg-tertiary px-2.5 py-1.5">
               <div className="h-5 w-5 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                <span className="text-2xs font-medium text-accent">{(u.name || u.email).charAt(0).toUpperCase()}</span>
+                <span className="text-2xs font-medium text-accent">{getInitialChar(u.name || u.email)}</span>
               </div>
               <span className="text-xs text-text-primary truncate flex-1">{u.name || u.email}</span>
               <span className="text-2xs text-text-tertiary shrink-0">{u.email}</span>

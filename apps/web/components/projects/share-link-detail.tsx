@@ -24,7 +24,7 @@ import {
   Globe,
   X,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getInitialChar } from "@/lib/utils";
 import { api } from "@/lib/api";
 import { ShareLinkActivityPanel } from "@/components/projects/share-link-activity";
 import type { ShareLink, ShareLinkAppearance } from "@/types";
@@ -376,7 +376,7 @@ function ShareUserSearch({ shareLink }: { shareLink: ShareLink }) {
             >
               <div className="h-7 w-7 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
                 <span className="text-xs font-medium text-accent">
-                  {(user.name || user.email).charAt(0).toUpperCase()}
+                  {getInitialChar(user.name || user.email)}
                 </span>
               </div>
               <div className="min-w-0 flex-1">
@@ -410,7 +410,7 @@ function ShareUserSearch({ shareLink }: { shareLink: ShareLink }) {
             >
               <div className="h-6 w-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
                 <span className="text-2xs font-medium text-accent">
-                  {(user.name || user.email).charAt(0).toUpperCase()}
+                  {getInitialChar(user.name || user.email)}
                 </span>
               </div>
               <div className="min-w-0 flex-1">

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Loader2 } from 'lucide-react'
 import { api } from '@/lib/api'
-import { formatRelativeTime } from '@/lib/utils'
+import { formatRelativeTime, getInitialChar } from '@/lib/utils'
 import type { ShareActivityAction, ShareLinkActivity } from '@/types'
 
 interface ShareLinkActivityPanelProps {
@@ -163,9 +163,9 @@ export function ShareLinkActivityPanel({ token }: ShareLinkActivityPanelProps) {
 
           <div className="space-y-0.5 px-3">
             {group.items.map((activity) => {
-              const displayName = activity.actor_name || activity.actor_email
-              const initial = displayName.charAt(0).toUpperCase()
-              const colorClass = avatarColor(activity.actor_email)
+              const displayName = activity.actor_name || activity.actor_email || 'Anonymous'
+              const initial = getInitialChar(displayName)
+              const colorClass = avatarColor(activity.actor_email || displayName)
               const actionLabel = ACTION_LABELS[activity.action]
               const actionColor = actionLabelColor(activity.action)
 

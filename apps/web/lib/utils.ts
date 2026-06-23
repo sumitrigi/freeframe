@@ -97,6 +97,22 @@ export function truncate(str: string, length: number): string {
   return str.slice(0, length) + '...'
 }
 
+/** First character for avatar badges — safe when value is missing. */
+export function getInitialChar(value?: string | null, fallback = '?'): string {
+  const text = (value ?? '').trim()
+  if (!text) return fallback
+  return text.charAt(0).toUpperCase()
+}
+
+/** One or two initials from a display name — safe when value is missing. */
+export function getInitials(name?: string | null, fallback = '?'): string {
+  if (!name?.trim()) return fallback
+  const parts = name.trim().split(/\s+/).filter(Boolean)
+  if (parts.length === 0) return fallback
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase()
+  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase()
+}
+
 export function endOfDayISO(dateStr: string): string {
   const d = new Date(dateStr)
   d.setHours(23, 59, 59, 999)

@@ -27,7 +27,7 @@ import {
   Send,
   Lock,
 } from "lucide-react";
-import { cn, formatTime, formatRelativeTime } from "@/lib/utils";
+import { cn, formatTime, formatRelativeTime, getInitials } from "@/lib/utils";
 import { useReviewStore } from "@/stores/review-store";
 import type { CommentWithReplies } from "@/hooks/use-comments";
 
@@ -88,12 +88,6 @@ function getAvatarColor(name: string): string {
     hash = name.charCodeAt(i) + ((hash << 5) - hash);
   }
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
-}
-
-function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 }
 
 // ─── useClickOutside ─────────────────────────────────────────────────────────
@@ -391,7 +385,9 @@ function CommentItem({
   }, [isFocused]);
 
   const authorName =
-    comment.author?.name ?? comment.guest_author?.name ?? "Unknown";
+    comment.author?.name?.trim() ||
+    comment.guest_author?.name?.trim() ||
+    "Unknown";
   const isOwn = !!(currentUserId && comment.author_id === currentUserId);
   const avatarColor = getAvatarColor(authorName);
   const isReplyingHere = replyingTo === comment.id && depth === 0;
